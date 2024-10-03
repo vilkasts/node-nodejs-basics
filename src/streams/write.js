@@ -8,13 +8,16 @@ const write = async () => {
   
   const writeStream = createWriteStream(filePath);
   
+  const handleWrite = (chunk) => {
+    writeStream.write(chunk)
+  }
   const handleError = () => {
     throw new Error("Operation failed");
   }
   
   process.stdin
     .on("error", handleError)
-    .pipe(writeStream)
+    .on("data", (chunk) => handleWrite(chunk))
     .on("error", handleError)
 }
 
