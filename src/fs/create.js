@@ -1,6 +1,6 @@
+import { existsSync, promises } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { existsSync, promises } from "fs";
 
 const create = async () => {
   const __dirname = dirname(fileURLToPath(import.meta.url));

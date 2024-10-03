@@ -1,14 +1,10 @@
-import { dirname, join } from "path";
+import { promises } from "fs";
 import { fileURLToPath } from "url";
-import { existsSync, promises } from "fs";
+import { dirname, join } from "path";
 
 const remove = async () => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
   const filePath = join(__dirname, "files", "fileToRemove.txt");
-  
-  if (!existsSync(filePath)) {
-    throw new Error("FS operation failed");
-  }
   
   try {
     await promises.unlink(filePath);
