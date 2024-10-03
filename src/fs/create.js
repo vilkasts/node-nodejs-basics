@@ -1,5 +1,21 @@
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+import { existsSync, promises } from "fs";
+
 const create = async () => {
-    // Write your code here 
-};
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const filePath = join(__dirname, "files", "fresh.txt");
+  const fileContent = "I am fresh and young";
+  
+  if (existsSync(filePath)) {
+    throw new Error("FS operation failed");
+  }
+  
+  try {
+    await promises.writeFile(filePath, fileContent);
+  } catch {
+    throw new Error("FS operation failed");
+  }
+}
 
 await create();
