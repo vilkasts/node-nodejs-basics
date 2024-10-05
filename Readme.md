@@ -1,3 +1,3 @@
-# Node.js basics
+# Dzmitry Luzko (Dzmitry(@vilkasts)) repo
 
-## !!! Please don't submit Pull Requests to this repository !!!
+## Task 1: Node.js basics
