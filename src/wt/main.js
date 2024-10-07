@@ -1,5 +1,5 @@
 import os from 'os'
-import { isMainThread, Worker } from 'worker_threads'
+import { Worker } from 'worker_threads'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -11,20 +11,17 @@ const performCalculations = async () => {
   const workersArray = []
   
   const createWorker = async (number) => {
-    if (isMainThread) {
-      return new Promise((resolve) => {
-        const worker = new Worker(workerPath)
-        
-        worker.postMessage(number)
-        worker
-          .on('message', (result) => {
-            resolve({ status: result.status, data: result.data })
-          })
-          .on('error', () => {
-            resolve({ status: 'error', data: null })
-          })
-      })
-    }
+    return new Promise((resolve) => {
+      const worker = new Worker(workerPath, { workerData: number })
+      
+      worker
+        .on('message', (result) => {
+          resolve({ status: result.status, data: result.data })
+        })
+        .on('error', () => {
+          resolve({ status: 'error', data: null })
+        })
+    })
   }
   
   for (let i = 0; i < coresQty; i++) {
